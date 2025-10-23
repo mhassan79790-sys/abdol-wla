@@ -1,0 +1,224 @@
+dsri wli screen 
+
+
+import 'package:flutter/material.dart';
+
+// This is the main entry point for your app
+void main() => runApp(const MyApp());
+
+// Added this MyApp widget to properly build your app
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // This removes the debug banner from the top-right corner
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // Using deepPurple to match the main card's gradient
+        primarySwatch: Colors.deepPurple,
+      ),
+      // Your DiscoverScreen is set as the home page of the app
+      home: const DiscoverScreen(),
+    );
+  }
+}
+
+// Your original DiscoverScreen widget (no errors found here)
+// File: discover_screen.dart
+class DiscoverScreen extends StatelessWidget {
+  const DiscoverScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header: "Discover" and Search Icon
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Discover',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.search, size: 28),
+                    onPressed: () {
+                      // Handle search tap
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // Filter Tabs
+              SizedBox(
+                height: 45,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _buildFilterTab(text: 'Meditation', isSelected: true),
+                    _buildFilterTab(text: 'Examination'),
+                    _buildFilterTab(text: 'Baby Sleep'),
+                    _buildFilterTab(text: 'Relax'),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+
+              // Main "Sleep Meditation" Card
+              _buildMainCard(),
+              const SizedBox(height: 25),
+
+              // Category Grid
+              GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                shrinkWrap:
+                    true, // Important for GridView in SingleChildScrollView
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disables GridView's own scrolling
+                children: [
+                  _buildCategoryCard(
+                    title: 'Anxiety',
+                    color: Colors.green.shade100,
+                    textColor: Colors.green.shade900,
+                  ),
+                  _buildCategoryCard(
+                    title: 'Relax',
+                    color: Colors.orange.shade100,
+                    textColor: Colors.orange.shade900,
+                  ),
+                  _buildCategoryCard(
+                    title: 'Focus',
+                    color: Colors.yellow.shade100,
+                    textColor: Colors.yellow.shade900,
+                  ),
+                  _buildCategoryCard(
+                    title: 'Self Love',
+                    color: Colors.pink.shade100,
+                    textColor: Colors.pink.shade900,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Helper widget for the filter tabs
+  Widget _buildFilterTab({required String text, bool isSelected = false}) {
+    return Container(
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.blue[700] : Colors.grey[100],
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black54,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Helper widget for the large "Sleep Meditation" card
+  Widget _buildMainCard() {
+    return Container(
+      height: 200,
+      width: double.infinity,
+      padding: const EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        gradient: LinearGradient(
+          colors: [
+            Colors.deepPurple.shade400,
+            Colors.deepPurple.shade700,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Sleep Meditation',
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '7 Days Course',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white70,
+            ),
+          ),
+          Spacer(),
+          Icon(
+            Icons.play_circle_fill,
+            color: Colors.white,
+            size: 45,
+          )
+        ],
+      ),
+    );
+  }
+
+  // Helper widget for the smaller category cards
+  Widget _buildCategoryCard({
+    required String title,
+    required Color color,
+    required Color textColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+          ),
+          const Spacer(),
+          Icon(
+            Icons.arrow_forward,
+            color: textColor,
+          )
+        ],
+      ),
+    );
+  }
+}
