@@ -1,0 +1,106 @@
+// File: home_screen_v2.dart
+
+import 'package:flutter/material.dart';
+
+// --- Main App Setup ---
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Simple Grid App', // Simplified App Title
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const HomeScreenV2(),
+    );
+  }
+}
+// ---------------------
+
+class HomeScreenV2 extends StatelessWidget {
+  const HomeScreenV2({Key? key}) : super(key: key);
+
+  // Helper function for the grid items
+  Widget _buildGridItem({required String title, required IconData icon, required Color color}) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: color),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Added a very light background color
+      backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        // Simple AppBar with a title
+        backgroundColor: Colors.deepPurple,
+        title: const Text(
+          'Simple Dashboard', // Simple Title
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 1,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        // A basic two-column grid
+        child: GridView.count(
+          crossAxisCount: 2, // Two columns
+          crossAxisSpacing: 12.0,
+          mainAxisSpacing: 12.0,
+          children: <Widget>[
+            _buildGridItem(
+              title: 'Item One',
+              icon: Icons.lightbulb,
+              color: Colors.orange,
+            ),
+            _buildGridItem(
+              title: 'Item Two',
+              icon: Icons.analytics,
+              color: Colors.blue,
+            ),
+            _buildGridItem(
+              title: 'Item Three',
+              icon: Icons.settings,
+              color: Colors.green,
+            ),
+            _buildGridItem(
+              title: 'Item Four',
+              icon: Icons.person,
+              color: Colors.deepPurple,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
