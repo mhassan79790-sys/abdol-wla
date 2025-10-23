@@ -1,0 +1,158 @@
+// File: simple_home_screen.dart
+
+import 'package:flutter/material.dart';
+
+// --- Main App Setup ---
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const SimpleHomeScreen(),
+    );
+  }
+}
+// ---------------------
+
+
+class SimpleHomeScreen extends StatelessWidget {
+  const SimpleHomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Use a simple background color
+      backgroundColor: Colors.grey[100],
+      
+      // 1. A very basic AppBar
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () {},
+          ),
+        ],
+      ),
+
+      // 2. A scrolling vertical list
+      body: SingleChildScrollView(
+        // Add padding around the whole list
+        padding: const EdgeInsets.all(16.0),
+        
+        // 3. The main vertical Column for all content
+        child: Column(
+          // Aligns all children to the start (left)
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            
+            // --- Section 1: Summary ---
+            const Text(
+              'Summary',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10), // A small space
+            
+            // A simple Card with a ListTile
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.flash_on, color: Colors.deepPurple),
+                title: const Text('Power'),
+                subtitle: const Text('85%'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.check_circle_outline, color: Colors.orange),
+                title: const Text('Tasks'),
+                subtitle: const Text('3/5'),
+              ),
+            ),
+            
+            const SizedBox(height: 20), // A larger space
+
+            // --- Section 2: Popular Topics ---
+            const Text(
+              'Popular Topics',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            
+            Card(
+              child: ListTile(
+                title: const Text('CSS'),
+                subtitle: const Text('10 posts'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: const Text('Java'),
+                subtitle: const Text('8 posts'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: const Text('Flutter'),
+                subtitle: const Text('15 posts'),
+              ),
+            ),
+            
+            const SizedBox(height: 20), // A larger space
+
+            // --- Section 3: Trending Post ---
+            const Text(
+              'Trending Post',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.design_services, color: Colors.blue),
+                title: const Text('Core UI & UX Ideation'),
+                subtitle: const Text('By D. Wanohak'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: Icon(Icons.code, color: Colors.green),
+                title: const Text('How to Be a Programmer'),
+                subtitle: const Text('By A. Abdool'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+      
+      // 4. A basic Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        type: BottomNavigationBarType.fixed, // Makes all labels visible
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark),
+            label: 'Saved',
+          ),
+        ],
+      ),
+    );
+  }
+}
